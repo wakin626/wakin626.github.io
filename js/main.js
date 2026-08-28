@@ -100,25 +100,22 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
    SCROLL REVEAL ANIMATION
    Elements fade in as you scroll down
 ============================================ */
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+const revealObserverOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px'
 };
 
-const observer = new IntersectionObserver((entries) => {
+const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.add('active');
+            revealObserver.unobserve(entry.target);
         }
     });
-}, observerOptions);
+}, revealObserverOptions);
 
-document.querySelectorAll('.glass-card, .section-title').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
+document.querySelectorAll('.reveal').forEach(el => {
+    revealObserver.observe(el);
 });
 
 
