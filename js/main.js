@@ -431,14 +431,7 @@ contactForm.addEventListener('submit', (e) => {
         }, 400 * (index + 1));
     });
 
-    const templateParams = {
-        from_name: formName.value,
-        from_email: formEmail.value,
-        subject: formSubject.value || "Portfolio Inquiry",
-        message: formMessage.value,
-    };
-
-    emailjs.send("service_922tb78", "template_tryit8j", templateParams)
+    emailjs.sendForm("service_922tb78", "template_tryit8j", e.target)
         .then(() => {
             contactForm.reset();
             formSubmit.disabled = false;
