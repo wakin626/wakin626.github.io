@@ -415,6 +415,7 @@
                 type="text"
                 class="form-input"
                 id="form-name"
+                name="name"
                 placeholder="John Doe"
                 required
               />
@@ -425,13 +426,14 @@
                 type="email"
                 class="form-input"
                 id="form-email"
+                name="email"
                 placeholder="john@example.com"
                 required
               />
             </div>
             <div class="form-group">
               <label class="form-label">Subject</label>
-              <select class="form-select" id="form-subject" required>
+              <select class="form-select" id="form-subject" name="title" required>
                 <option value="" disabled selected>Select a topic</option>
                 <option value="it-support">IT Support Inquiry</option>
                 <option value="project">Project Collaboration</option>
@@ -445,6 +447,7 @@
               <textarea
                 class="form-textarea"
                 id="form-message"
+                name="message"
                 placeholder="Tell me about your project or inquiry..."
                 required
               ></textarea>
