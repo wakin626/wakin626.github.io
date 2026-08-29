@@ -414,6 +414,8 @@ const contactForm = document.getElementById('contact-form');
 const formSubmit = document.getElementById('form-submit');
 const terminalSubmit = document.getElementById('terminal-submit');
 
+emailjs.init("Q7zhvdu7aVplI3tK_");
+
 contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -429,16 +431,36 @@ contactForm.addEventListener('submit', (e) => {
         }, 400 * (index + 1));
     });
 
-    setTimeout(() => {
-        contactForm.reset();
-        formSubmit.disabled = false;
-        formSubmit.innerHTML = '<span>Send Message</span><span>\u27A1</span>';
+    const templateParams = {
+        from_name: formName.value,
+        from_email: formEmail.value,
+        subject: formSubject.value || "Portfolio Inquiry",
+        message: formMessage.value,
+    };
 
-        setTimeout(() => {
-            terminalSubmit.classList.remove('active');
-            lines.forEach(line => line.classList.remove('visible'));
-        }, 3000);
-    }, 400 * lines.length + 1500);
+    emailjs.send("service_922tb78", "template_tryit8j", templateParams)
+        .then(() => {
+            contactForm.reset();
+            formSubmit.disabled = false;
+            formSubmit.innerHTML = '<span>Send Message</span><span>\u27A1</span>';
+
+            setTimeout(() => {
+                terminalSubmit.classList.remove('active');
+                lines.forEach(line => line.classList.remove('visible'));
+            }, 3000);
+        })
+        .catch((error) => {
+            console.error("EmailJS error:", error);
+            alert("Failed to send message. Please try again or email directly.");
+            contactForm.reset();
+            formSubmit.disabled = false;
+            formSubmit.innerHTML = '<span>Send Message</span><span>\u27A1</span>';
+
+            setTimeout(() => {
+                terminalSubmit.classList.remove('active');
+                lines.forEach(line => line.classList.remove('visible'));
+            }, 3000);
+        });
 });
 
 
